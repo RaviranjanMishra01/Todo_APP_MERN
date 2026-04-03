@@ -1,0 +1,7 @@
+@import "tailwindcss";
+@layer base {
+  ::selection {
+    background-color: #10293f;
+    color: #13d5c2;
+  }
+}
