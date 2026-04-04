@@ -21,7 +21,8 @@ app.use(cors({
   credentials: true
 }));
 
-app.use("/", route);
+app.get("/",(req,res)=>{res.json({ message: "success" })})
+app.use("/api/todos", route);
 
 // DB + server start
 mongoose.connect(MONGO_URL)
