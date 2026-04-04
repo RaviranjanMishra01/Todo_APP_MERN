@@ -5,7 +5,7 @@ function App() {
   const [title, setTitle] = useState("");
   const [dark, setDark] = useState(true);
 
-  const API = "http://localhost:5000/api/todos";
+  const API = "https://todo-app-mern-full-stack.onrender.com/api/todos"
 
   // GET TODOS
   const fetchTodos = async () => {
