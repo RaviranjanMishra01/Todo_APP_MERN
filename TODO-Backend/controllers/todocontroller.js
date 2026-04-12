@@ -1,28 +1,59 @@
 const Todo = require("../model/Todo")
 
-exports.getTodos = async (req,res) =>{
-    const todos  = await Todo.find();
-    res.json(todos)
-}
+exports.getTodos = async (req,res)=>{
+    try{
+        const todos = await Todo.find({ user: req.user.id }); // 🔥 FILTER
+        res.json(todos);
+    }catch(err){
+        res.status(500).json({error:err.message});
+    }
+};
 
 //post
-exports.createTodo = async (req,res) =>{
-    const todo  = await Todo.create(req.body);
-    res.json(todo);
-}
+exports.createTodo = async (req,res)=>{
+    try{
+        const todo = await Todo.create({
+            ...req.body,
+            user: req.user.id   // 🔥 LINKED HERE
+        });
 
-//update
-exports.updateTodo = async (req,res) =>{
-    const todo = await Todo.findByIdAndUpdate(
-        req.params.id,
-        req.body,
-        {new:true}
-    );
-    res.json(todo);
-}
+        res.json(todo);
+    }catch(err){
+        res.status(500).json({error:err.message});
+    }
+};
 
-//delete
-exports.deleteTodo = async (req,res) =>{
-    await Todo.findByIdAndDelete(req.params.id);
-    res.json({message:"Deleted"})
+exports.updateTodo = async (req,res)=>{
+    try{
+        const todo = await Todo.findOneAndUpdate(
+            { _id:req.params.id, user:req.user.id }, // 🔥 SECURITY
+            req.body,
+            { new:true }
+        );
+
+        if(!todo){
+            return res.status(404).json({message:"Not found"});
+        }
+
+        res.json(todo);
+    }catch(err){
+        res.status(500).json({error:err.message});
+    }
+};
+
+exports.deleteTodo = async (req,res)=>{
+    try{
+        const todo = await Todo.findOneAndDelete({
+            _id:req.params.id,
+            user:req.user.id
+        });
+
+        if(!todo){
+            return res.status(404).json({message:"Not found"});
+        }
+
+        res.json({message:"Deleted"});
+    }catch(err){
+        res.status(500).json({error:err.message});
+    }
 };
