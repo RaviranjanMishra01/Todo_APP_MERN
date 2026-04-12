@@ -11,7 +11,7 @@ function getGreeting() {
   return "Good evening";
 }
 
-// Username ke initials nikalo (e.g. "John Doe" → "JD", "alex" → "AL")
+// Username name split
 function getInitials(name = "") {
   return name
     .split(" ")
@@ -20,7 +20,8 @@ function getInitials(name = "") {
     .join("");
 }
 
-// Initials se consistent color generate karo
+// Initials se consistent color generate random colors
+
 function getAvatarColor(name = "") {
   const colors = [
     "bg-amber-500",
@@ -42,9 +43,9 @@ function Dashboard() {
   const [user, setUser] = useState(null);
   const [showUserMenu, setShowUserMenu] = useState(false);
 
-  // Token se user info lo
+  // get info from Token
   useEffect(() => {
-    const user = getStoredUser(); // ✅ localStorage se lo
+    const user = getStoredUser(); 
     if (!user) {
       window.location.href = "/login";
       return;
