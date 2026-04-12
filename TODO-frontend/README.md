@@ -1,16 +1,124 @@
-# React + Vite
+# 📝 Todo App — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React + Vite + Tailwind CSS se bana hua Todo application ka frontend.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🛠 Tech Stack
 
-## React Compiler
+- **React** — UI library
+- **Vite** — Build tool
+- **Tailwind CSS** — Styling
+- **LocalStorage** — Token & user data store
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 📁 Folder Structure
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```
+TODO-frontend/
+├── public/
+├── src/
+│   ├── api/
+│   │   └── api.js              # Base URL + auth headers + getStoredUser
+│   ├── assets/
+│   ├── components/
+│   │   └── ProtectedRoute.jsx  # Auth guard component
+│   ├── pages/
+│   │   ├── Dashboard.jsx       # Main todo page (protected)
+│   │   ├── Login.jsx           # Login page
+│   │   └── Register.jsx        # Register page
+│   ├── App.jsx                 # Routes setup
+│   ├── index.css
+│   └── main.jsx
+├── .gitignore
+├── eslint.config.js
+├── index.html
+├── package.json
+├── vite.config.js
+└── README.md
+```
+
+---
+
+## ⚙️ Setup & Installation
+
+### 1. Dependencies install karo
+
+```bash
+cd TODO-frontend
+npm install
+```
+
+### 2. Dev server chalao
+
+```bash
+npm run dev
+```
+
+App `http://localhost:5173` pe open hogi.
+
+### 3. Production build
+
+```bash
+npm run build
+```
+
+---
+
+## 🔗 API Configuration
+
+`src/api/api.js` mein backend URL set karo:
+
+```js
+const API = "http://localhost:5000"; // Backend URL
+```
+
+Production mein deploy karne pe yahan apna live backend URL daalo.
+
+---
+
+## 📄 Pages
+
+### `/register`
+- Naya account banao (username, email, password)
+- Success pe `/login` pe redirect
+
+### `/login`
+- Email + password se login karo
+- Token aur user info `localStorage` mein save hoti hai
+- Success pe `/` (Dashboard) pe redirect
+
+### `/` — Dashboard *(Protected)*
+- Todos fetch, create, update, delete
+- User avatar dropdown (naam, email, task stats)
+- Time-based greeting (Good morning / afternoon / evening)
+- Dark / Light mode toggle
+- Logout button
+
+---
+
+## 🔐 Auth Flow
+
+```
+Register → Login → Token localStorage mein save → Dashboard access
+```
+
+- Token nahi hai → automatically `/login` pe redirect
+- Logout pe token + user dono localStorage se remove hote hain
+
+---
+
+## 🎨 Features
+
+- ✅ Dark / Light mode
+- ✅ Progress bar (completed tasks)
+- ✅ User avatar with initials
+- ✅ Time-based greeting
+- ✅ User dropdown with stats
+- ✅ Enter key se todo add
+- ✅ Hover pe delete button
+- ✅ Clear completed todos
+- ✅ Loading & error states on forms
+
+
