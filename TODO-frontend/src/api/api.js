@@ -1,4 +1,4 @@
-const API = "https://todo-app-mern-1-cos6.onrender.com/";
+const API = "https://todo-app-mern-1-cos6.onrender.com/login";
 
 export const getAuthHeaders = () => {
   const token = localStorage.getItem("token");
