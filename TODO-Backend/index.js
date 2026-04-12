@@ -18,7 +18,7 @@ app.use(express.json());
 
 //  CORS (important for Vercel frontend)
 app.use(cors({
-  origin: "https://todo-app-mern-silk.vercel.app/login",
+  origin:"https://todo-app-mern-silk.vercel.app/",
   credentials: true
 }));
 
