@@ -8,13 +8,16 @@ export const getAuthHeaders = () => {
   };
 };
 
-
 export const getStoredUser = () => {
   try {
     return JSON.parse(localStorage.getItem("user"));
   } catch {
     return null;
   }
+};
+
+export const wakeBackend = () => {
+  fetch(`${API}/`).catch(() => {});
 };
 
 export default API;
