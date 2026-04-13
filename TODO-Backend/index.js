@@ -5,34 +5,30 @@ require("dotenv").config();
 
 const app = express();
 
-//  USE ENV VARIABLES
 const PORT = process.env.PORT || 5000;
 const MONGO_URL = process.env.MONGO_URL;
 
-//  CORS (important for Vercel frontend)
-app.use(cors({
+const corsOptions = {
   origin: [
     "https://todo-app-mern-silk.vercel.app",
-    "http://localhost:5173",  // for local dev
+    "http://localhost:5173",
     "http://localhost:3000"
   ],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"]
-}));
+};
 
-app.options("*", cors());
+app.use(cors(corsOptions));
+app.options(/.*/, cors(corsOptions)); // ← FIX
 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 const authRoutes = require("./routes/authRoutes");
 const route = require("./routes/routes");
 
-// middleware
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-
-
-app.get("/",(req,res)=>{res.json({ message: "success" })})
+app.get("/", (req, res) => { res.json({ message: "success" }) });
 app.use("/api/todos", route);
 app.use("/api/auth", authRoutes);
 
