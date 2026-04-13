@@ -3,21 +3,24 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { wakeBackend } from "./api/api";
 
-function App(){
-  return(
+wakeBackend(); // runs once on load
+
+function App() {
+  return (
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<Login/>}/>
-        <Route path="/register" element={<Register/>}/>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/" element={
           <ProtectedRoute>
-            <Dashboard/>
+            <Dashboard />
           </ProtectedRoute>
-        }/>
+        } />
       </Routes>
     </BrowserRouter>
-  )
+  );
 }
 
 export default App;
