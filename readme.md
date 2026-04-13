@@ -14,7 +14,7 @@ Features JWT authentication, user profiles, dark/light mode, and a clean minimal
 
 ## 🌐 Live Demo
 
-> 🚀 **Live Site:** [your-live-link-here.com](https://your-live-link-here.com)
+> 🚀 **Live Site:** [your-live-link-here.com](https://todo-app-mern-sooty.vercel.app/login)
 
 ---
 
