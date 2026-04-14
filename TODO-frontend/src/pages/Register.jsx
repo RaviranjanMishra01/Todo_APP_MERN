@@ -7,10 +7,19 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [emailError, setEmailError] = useState("");
 
+
+  const validateEmail = (email) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
   const handleRegister = async () => {
     if (!username || !email || !password) {
       setError("All fields are required.");
+      return;
+    }
+    if (!validateEmail(email)) {
+      setError("Please enter a valid email address.");
       return;
     }
     setError("");
@@ -64,6 +73,13 @@ export default function Register() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleRegister()}
+            onBlur={()=>{
+              if (email && !validateEmail(email)) {
+                setEmailError("Invalid email format.");
+              } else {
+                setEmailError("");
+              }
+            }}
             className="w-full bg-zinc-900 border border-zinc-800 text-white text-sm px-4 py-3 rounded-lg outline-none placeholder-zinc-600 focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition-all duration-200"
           />
           <input
